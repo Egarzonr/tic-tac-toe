@@ -1,0 +1,25 @@
+//=========================
+// Puerto
+//=========================
+process.env.PORT = process.env.PORT || "3000";
+
+//=========================
+// Entorno
+//=========================
+
+process.env.NODE_ENV = process.env.NODE_ENV || "dev";
+
+//=========================
+// Base de Datos
+//=========================
+
+// let urlDB;
+
+// if (process.env.NODE_ENV === "dev") {
+//   urlDB = "mongodb://localhost:27017/triqui";
+// } else {
+let urlDB =
+  "mongodb+srv://m220student:m220password@mflix.ktu1t.mongodb.net/triqui?authSource=admin&replicaSet=atlas-tgpalt-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
+//}
+
+process.env.URLDB = urlDB;

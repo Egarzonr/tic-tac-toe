@@ -1,0 +1,92 @@
+<div class="main-container">
+    <h1 class="mat-display-2" style="font-weight: 900; text-align: center; margin: 15px 0; color: white;">Triqui</h1>
+
+    <div class="field d-flex justify-content-center">
+        <p class=" current-status  mat-display-1" style="color: #fff;">Iniciar el juego en el boton</p>
+    </div>
+
+    <div class="field d-flex justify-content-center" style="width: 100%;">
+        <button (click)="startGame(); updateTable = false" mat-raised-button color="accent" class="start-game-button">Jugar!</button>
+    </div>
+
+
+
+
+    <div *ngIf="this.game.gameStatus === 1" class=" gameboard ">
+
+        <div class="players player-one align-self-center ">
+            <p class="mat-body-1 " style="font-weight: 700; ">Jugador 1</p>
+        </div>
+
+        <div class="gamefield container-fluid ">
+            <div class="row ">
+                <div (click)="clickSubfield($event)" position="0" class="subfield col-4 "></div>
+                <div (click)="clickSubfield($event)" position="1" class="subfield col-4 "></div>
+                <div (click)="clickSubfield($event)" position="2" class="subfield col-4 "></div>
+            </div>
+            <div class="row ">
+                <div (click)="clickSubfield($event)" position="3" class="subfield col-4 "></div>
+                <div (click)="clickSubfield($event)" position="4" class="subfield col-4 "></div>
+                <div (click)="clickSubfield($event)" position="5" class="subfield col-4 "></div>
+            </div>
+            <div class="row ">
+                <div (click)="clickSubfield($event)" position="6" class="subfield col-4 "></div>
+                <div (click)="clickSubfield($event)" position="7" class="subfield col-4 "></div>
+                <div (click)="clickSubfield($event)" position="8" class="subfield col-4 "></div>
+            </div>
+        </div>
+
+
+        <div class="players player-two align-self-center ">
+            <p class="mat-body-1 " style="font-weight: 700; ">Jugador 2</p>
+        </div>
+
+
+    </div>
+
+    <div *ngIf="this.game.gameStatus === 1" class="field d-flex justify-content-center" style="width: 100%;">
+        <button (click)=" savePlays(); this.game.gameStatus = 0; reloadComponent(); updateTable = true " mat-raised-button color="accent" class="start-game-button">pausar Juego</button>
+
+    </div>
+
+
+    <div *ngIf="updateTable" class="table-pro">
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+
+                    <th scope="col">Juego</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Ganador</th>
+                    <th scope="col">Eliminar</th>
+                    <th scope="col">Continuar</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let game of gamesList; let i=index">
+                    <tr>
+                        <td>{{game?.name}} </td>
+                        <td>{{game?.started |startedPipe }}</td>
+                        <td>{{game?.ganador }}</td>
+                        <td>
+
+
+
+                            <button (click)="deleteGames(game?._id); reloadComponent()" type="button" class="btn btn-danger">
+                                Eliminar
+                            </button>
+                        </td>
+                        <td>
+
+                            <button (click)=" loadField(game?._id); this.game.gameStatus = 1; updateTable = false; restartGame() " type="button" [disabled]="game.started === 0" class="btn btn-warning"><i
+                                    class="fas fa-sync-alt"></i>
+                                Cargar</button>
+                        </td>
+
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>
